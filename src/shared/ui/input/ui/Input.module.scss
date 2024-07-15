@@ -1,0 +1,47 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+
+  .labelWrapper {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .label {
+    font-size: 13px;
+    line-height: 14px;
+    white-space: nowrap;
+  }
+
+  .inputWrapper {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+    height: 35px;
+    gap: 2px;
+    padding: 10.5px 10px 9.5px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    transition: all 150ms ease;
+
+    &_active {
+      border-color: blue;
+    }
+
+    .inputHTML {
+      font-weight: 400;
+      font-size: 14px;
+      color: rgb(73, 72, 72);
+      background: transparent;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+      width: 100%;
+      flex-grow: 1;
+    }
+  }
+}

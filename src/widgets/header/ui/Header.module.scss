@@ -1,0 +1,16 @@
+.root {
+  $bg: #f6f8fa;
+  display: flex;
+  align-items: center;
+  background-color: $bg;
+  height: 60px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .title {
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 22px;
+  }
+}

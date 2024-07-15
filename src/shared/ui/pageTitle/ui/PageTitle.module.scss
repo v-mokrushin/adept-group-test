@@ -1,0 +1,10 @@
+.root {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 26px;
+
+  &_noMargin {
+    margin: 0;
+  }
+}
