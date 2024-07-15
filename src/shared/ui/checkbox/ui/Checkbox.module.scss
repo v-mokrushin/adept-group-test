@@ -1,0 +1,57 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+
+  .label {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(54, 52, 52);
+    line-height: 26px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .checkbox {
+    position: relative;
+    user-select: none;
+
+    .htmlInput {
+      position: absolute;
+      outline: none;
+      clip: rect(0, 0, 0, 0);
+
+      &:checked ~ .controlBox .icon {
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    .controlBox {
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-sizing: border-box;
+      height: 20px;
+      border: 1px solid #b1b2b4;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      transition: all 200ms ease;
+
+      &:hover {
+        border-color: blue;
+      }
+
+      .icon {
+        fill: rgb(118, 129, 145);
+        opacity: 0;
+        transition: opacity 200ms ease;
+        aspect-ratio: 1 / 1;
+        height: 70%;
+      }
+    }
+  }
+}

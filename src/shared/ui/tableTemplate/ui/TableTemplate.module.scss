@@ -1,0 +1,59 @@
+$headerBordercolor: #b1b9c9;
+$bodyTdBorderColor: #eceff5;
+
+.root {
+  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th,
+  td {
+    padding: 10px 8px;
+    box-sizing: border-box;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 15px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 15px;
+  }
+
+  thead tr th {
+    font-size: 13px;
+    color: #8892a1;
+    font-weight: 500;
+    user-select: none;
+    border-bottom: 1px solid $headerBordercolor;
+    border-width: 1px 0;
+    padding-bottom: 10px;
+  }
+
+  tbody tr {
+    td {
+      color: rgb(49, 44, 44);
+      transition: background-color 280ms ease;
+
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+        border-left-width: 1px;
+      }
+
+      &:last-child {
+        border-radius: 0 6px 6px 0;
+        border-right-width: 1px;
+      }
+    }
+
+    &:hover td {
+      background-color: #f7f0f7;
+    }
+  }
+}
+
+// .selectedRecord.selectedRecord { 
+//     background-color: #f7f0f7;
+// }
