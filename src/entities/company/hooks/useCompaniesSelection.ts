@@ -1,4 +1,4 @@
-import { ICompany } from "./model/types";
+import { ICompany } from "../model/types";
 import { useCallback, useMemo, useState } from "react";
 
 /** Кастомный хук состояния выбора компонентов для массовых операций */

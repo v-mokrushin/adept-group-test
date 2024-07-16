@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./MainPage.module.scss";
 import classNames from "classnames";
 import { routes } from "shared/route";
-import { useAppDispatch, useAppSelector } from "shared/hooks/store";
+import { useAppDispatch, useAppSelector } from "shared/store";
 import {
   Button,
   Checkbox,
@@ -15,6 +15,7 @@ import {
   selectCompanies,
   useCompaniesSelection,
 } from "entities/company";
+import { CompanyCreation } from "widgets/companyCreation";
 
 export const MainPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ export const MainPage: React.FC = () => {
     <div className={styles.root}>
       <Container>
         <PageTitle>{routes.main.name}</PageTitle>
+        <CompanyCreation />
         {selection.isSomeSelected && (
           <Button onClick={deleteItems}>Удалить</Button>
         )}

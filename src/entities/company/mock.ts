@@ -8,7 +8,7 @@ export const companiesMock: ICompany[] = [
   // GetCompany(4, "3DFDF", "Flex"),
 ];
 
-for (let i = 0; i < 30; i++)
+for (let i = 0; i < 15; i++)
   companiesMock.push(
     GetCompany(i + 1, `company name ${i + 1}`, `company address ${i + 1}`)
   );

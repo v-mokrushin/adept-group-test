@@ -5,8 +5,6 @@ import classNames from "classnames";
 interface IProps {
   children: React.ReactNode;
   size?: "medium" | "small";
-  type?: "button" | "submit" | "reset";
-  outlined?: boolean;
   disabled?: boolean;
   onClick?: Function;
   className?: string;
@@ -16,7 +14,6 @@ interface IProps {
 export const Button: React.FC<IProps> = ({
   children,
   onClick,
-  type = "button",
   disabled = false,
   className,
 }) => {
@@ -30,7 +27,6 @@ export const Button: React.FC<IProps> = ({
         disabled && styles.disabled,
         className
       )}
-      type={type}
     >
       {children}
     </button>
