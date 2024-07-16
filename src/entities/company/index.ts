@@ -1,1 +1,2 @@
-export { companiesClice } from "./model/slice";
+export { companiesSlice } from "./model/slice";
+export * from "./model/selectors";

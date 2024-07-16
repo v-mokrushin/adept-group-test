@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ICompanySliceState } from "./types";
+import { companiesMock } from "../mock";
 
 const initialState: ICompanySliceState = {
-  companies: [],
+  companies: companiesMock,
 };
 
-export const companiesClice = createSlice({
-  name: "companiesClice",
+export const companiesSlice = createSlice({
+  name: "companiesSlice",
   initialState,
   reducers: {
     delete(
