@@ -10,12 +10,13 @@ export const companiesSlice = createSlice({
   name: "companiesSlice",
   initialState,
   reducers: {
-    delete(
+    deleteByIds(
       state: ICompanySliceState,
-      action: { payload: number; type: string }
+      action: { payload: number[]; type: string }
     ) {
+      const ids = action.payload;
       state.companies = state.companies.filter(
-        (company) => company.id !== action.payload
+        (company) => !ids.includes(company.id)
       );
     },
   },
