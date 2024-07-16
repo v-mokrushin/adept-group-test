@@ -1,75 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./MainPage.module.scss";
-import classNames from "classnames";
 import { routes } from "shared/route";
+import { Container, PageTitle } from "shared/ui";
+import { CompaniesWorks } from "widgets/companiesWorks";
 import { CompanyCreation } from "widgets/companyCreation";
-import { useAppDispatch, useAppSelector } from "shared/store";
-import {
-  Button,
-  Checkbox,
-  Container,
-  PageTitle,
-  TableTemplate,
-} from "shared/ui";
-import {
-  companiesSlice,
-  selectCompanies,
-  useCompaniesSelection,
-} from "entities/company";
 
 export const MainPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const data = useAppSelector(selectCompanies);
-  const selection = useCompaniesSelection(data);
-  console.log(selection.items);
-  console.debug(data);
-  console.debug("");
-
-  const deleteItems = () => {
-    dispatch(companiesSlice.actions.deleteByIds(selection.ids));
-    selection.reset();
-  };
-
-  useEffect(() => {
-    dispatch(companiesSlice.actions.setAddress({ id: 1, newAddress: "val" }));
-  }, []);
-
   return (
     <div className={styles.root}>
       <Container>
         <PageTitle>{routes.main.name}</PageTitle>
-        <CompanyCreation />
-        {selection.isSomeSelected && (
-          <Button onClick={deleteItems}>Удалить</Button>
-        )}
-        <TableTemplate>
-          <thead>
-            <tr>
-              <th>
-                <Checkbox
-                  value={selection.isAllSelected}
-                  onChange={selection.selectAll}
-                />
-              </th>
-              <th>Название компании</th>
-              <th>Адрес</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((company) => (
-              <tr>
-                <td>
-                  <Checkbox
-                    value={selection.isSelected(company.id)}
-                    onChange={() => selection.select(company)}
-                  />
-                </td>
-                <td>{company.name}</td>
-                <td>{company.address}</td>
-              </tr>
-            ))}
-          </tbody>
-        </TableTemplate>
+        <div className={styles.contentBox}>
+          <CompanyCreation />
+          <CompaniesWorks />
+        </div>
       </Container>
     </div>
   );

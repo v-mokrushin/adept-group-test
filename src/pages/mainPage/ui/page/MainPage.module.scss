@@ -1,9 +1,9 @@
 // @import "shared/styles/index.scss";
 
 .root {
-  .searchBox {
+  .contentBox {
     display: flex;
-    gap: 5px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 25px;
   }
 }
