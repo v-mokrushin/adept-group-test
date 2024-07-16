@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 interface IProps {
   children: React.ReactNode;
+  color?: "blue" | "red";
   size?: "medium" | "small";
   disabled?: boolean;
   onClick?: Function;
@@ -15,6 +16,8 @@ export const Button: React.FC<IProps> = ({
   children,
   onClick,
   disabled = false,
+  color = "blue",
+  size = "medium",
   className,
 }) => {
   return (
@@ -24,6 +27,8 @@ export const Button: React.FC<IProps> = ({
       }}
       className={classNames(
         styles.root,
+        styles[color],
+        styles[size],
         disabled && styles.disabled,
         className
       )}

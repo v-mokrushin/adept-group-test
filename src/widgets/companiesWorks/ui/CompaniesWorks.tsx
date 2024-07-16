@@ -8,6 +8,10 @@ import {
   selectCompanies,
   useCompaniesSelection,
 } from "entities/company";
+import {
+  CompanyEditingMenu,
+  useEditCompany,
+} from "features/companyEditingMenu";
 
 interface IProps {
   className?: string;
@@ -17,6 +21,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(selectCompanies);
   const selection = useCompaniesSelection(data);
+  const editing = useEditCompany();
 
   const deleteItems = () => {
     dispatch(companiesSlice.actions.deleteByIds(selection.ids));
@@ -29,8 +34,11 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
 
   return (
     <div className={classNames(styles.root, className)}>
+      <CompanyEditingMenu state={editing} />
       {selection.isSomeSelected && (
-        <Button onClick={deleteItems}>Удалить</Button>
+        <Button color="red" onClick={deleteItems}>
+          Удалить
+        </Button>
       )}
       <TableTemplate className={styles.table}>
         <thead>
@@ -54,7 +62,20 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
                   onChange={() => selection.select(company)}
                 />
               </td>
-              <td>{company.name}</td>
+              <td
+                onClick={(e) =>
+                  editing.open(e, company.name, (name: string) =>
+                    dispatch(
+                      companiesSlice.actions.setName({
+                        id: company.id,
+                        newName: name,
+                      })
+                    )
+                  )
+                }
+              >
+                {company.name}
+              </td>
               <td>{company.address}</td>
             </tr>
           ))}

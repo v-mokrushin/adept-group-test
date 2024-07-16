@@ -12,12 +12,22 @@
   cursor: pointer;
   transition: all 250ms ease;
   user-select: none;
+}
 
-  $blue1: #5282ff;
-  $blue2: #4d78e6;
-  $blue3: #5e4eec;
+.disabled.disabled {
+  $color: #7797aa;
+  background-color: $color;
+  border: 1px solid $color;
+  color: rgb(230, 218, 218);
+  cursor: not-allowed;
 
-  $color: $blue1;
+  &:hover {
+    background-color: $color;
+  }
+}
+
+.blue {
+  $color: #5282ff;
   background-color: $color;
   border: 1px solid $color;
   color: white;
@@ -27,15 +37,19 @@
   }
 }
 
-.disabled {
-  color: #7797aa;
-  background-color: color;
-  border: 1px solid color;
-  color: rgb(230, 218, 218);
-  // pointer-events: none;
-  cursor: not-allowed;
+.red {
+  $color: #f14b4d;
+  background-color: $color;
+  border: 1px solid $color;
+  color: white;
 
   &:hover {
-    background-color: color;
+    background-color: #e4474a;
   }
+}
+
+.small {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 13px;
 }
