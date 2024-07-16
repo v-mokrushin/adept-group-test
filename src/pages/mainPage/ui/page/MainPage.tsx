@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./MainPage.module.scss";
 import classNames from "classnames";
 import { routes } from "shared/route";
+import { CompanyCreation } from "widgets/companyCreation";
 import { useAppDispatch, useAppSelector } from "shared/store";
 import {
   Button,
@@ -15,7 +16,6 @@ import {
   selectCompanies,
   useCompaniesSelection,
 } from "entities/company";
-import { CompanyCreation } from "widgets/companyCreation";
 
 export const MainPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +29,10 @@ export const MainPage: React.FC = () => {
     dispatch(companiesSlice.actions.deleteByIds(selection.ids));
     selection.reset();
   };
+
+  useEffect(() => {
+    dispatch(companiesSlice.actions.setAddress({ id: 1, newAddress: "val" }));
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -61,7 +65,7 @@ export const MainPage: React.FC = () => {
                   />
                 </td>
                 <td>{company.name}</td>
-                <td>{company.name}</td>
+                <td>{company.address}</td>
               </tr>
             ))}
           </tbody>

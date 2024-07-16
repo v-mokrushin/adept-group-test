@@ -30,5 +30,23 @@ export const companiesSlice = createSlice({
         (company) => !ids.includes(company.id)
       );
     },
+
+    setName(
+      state: ICompanySliceState,
+      action: { payload: { id: number; newName: string }; type: string }
+    ) {
+      const { id, newName } = action.payload;
+      const company = state.companies.find((company) => company.id === id);
+      if (company) company.name = newName;
+    },
+
+    setAddress(
+      state: ICompanySliceState,
+      action: { payload: { id: number; newAddress: string }; type: string }
+    ) {
+      const { id, newAddress } = action.payload;
+      const company = state.companies.find((company) => company.id === id);
+      if (company) company.address = newAddress;
+    },
   },
 });
