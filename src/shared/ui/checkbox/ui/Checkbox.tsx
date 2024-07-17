@@ -8,8 +8,6 @@ interface ICheckboxProps {
   onChange?: (value: boolean) => void;
   className?: string;
 }
-
-/** Чекбокс */
 export const Checkbox: React.FC<ICheckboxProps> = ({
   label,
   value,

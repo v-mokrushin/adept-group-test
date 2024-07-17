@@ -7,7 +7,6 @@ interface IProps {
   resetMarginBottom?: boolean;
 }
 
-/** Заголовок страниц */
 export const PageTitle: React.FC<IProps> = ({
   children,
   resetMarginBottom,

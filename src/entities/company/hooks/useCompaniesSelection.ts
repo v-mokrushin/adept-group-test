@@ -1,7 +1,6 @@
 import { ICompany } from "../model/types";
 import { useCallback, useMemo, useState } from "react";
 
-/** Кастомный хук состояния выбора компонентов для массовых операций */
 export const useCompaniesSelection = (collection: ICompany[]) => {
   const [items, setItems] = useState<ICompany[]>([]);
   const count = useMemo(() => items.length, [items]);
@@ -29,7 +28,9 @@ export const useCompaniesSelection = (collection: ICompany[]) => {
   const isAllSelected = useMemo(
     () =>
       collection.length > 0 &&
-      collection.every((company) => items.find((item) => item.id === company.id)),
+      collection.every((company) =>
+        items.find((item) => item.id === company.id)
+      ),
     [collection, items]
   );
 

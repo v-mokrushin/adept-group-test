@@ -83,7 +83,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
       <TableTemplate className={styles.table}>
         <thead>
           <tr>
-            <th></th>
+            <th>№</th>
             <th>
               <Checkbox
                 value={selection.isAllSelected}

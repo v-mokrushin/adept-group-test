@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 
-/** Кастомный хук состояния выбора компонентов для массовых операций */
 export const useCompanyCreation = () => {
   const [name, setName] = useState<string>("");
   const [address, setAddress] = useState<string>("");

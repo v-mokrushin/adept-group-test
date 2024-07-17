@@ -11,7 +11,6 @@ interface IProps {
   className?: string;
 }
 
-/** Кнопка */
 export const Button: React.FC<IProps> = ({
   children,
   onClick,
