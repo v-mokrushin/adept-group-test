@@ -9,4 +9,8 @@
   &:hover {
     text-decoration: underline;
   }
+
+  &_error {
+    color: red;
+  }
 }

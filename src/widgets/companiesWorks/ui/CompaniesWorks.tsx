@@ -31,6 +31,11 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
     dispatch(companiesSliceActions.increaseDisplayCount())
   );
 
+  const onDeleteCompany = useCallback((id: number) => {
+    dispatch(companiesSliceActions.deleteById(id));
+    selection.reset();
+  }, []);
+
   const onDeleteCompanies = useCallback(() => {
     dispatch(companiesSliceActions.deleteByIds(selection.ids));
     selection.reset();
@@ -86,6 +91,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
             </th>
             <th>Название компании</th>
             <th>Адрес</th>
+            {selection.isSomeSelected || <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -122,6 +128,16 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
                   </TextButton>
                 </div>
               </td>
+              {selection.isSomeSelected || (
+                <td>
+                  <TextButton
+                    errorStyle
+                    onClick={() => onDeleteCompany(company.id)}
+                  >
+                    удалить
+                  </TextButton>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -23,6 +23,14 @@ export const companiesSlice = createSlice({
       });
     },
 
+    deleteById(
+      state: ICompanySliceState,
+      action: { payload: number; type: string }
+    ) {
+      const id = action.payload;
+      state.companies = state.companies.filter((company) => company.id !== id);
+    },
+
     deleteByIds(
       state: ICompanySliceState,
       action: { payload: number[]; type: string }
