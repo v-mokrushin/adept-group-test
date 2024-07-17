@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
-import { ICompany, selectCompaniesInDisplayCount } from "entities/company";
+import { useInfiniteScroll } from "shared/hooks";
 import { Button, Checkbox, TableTemplate } from "shared/ui";
 import { useAppDispatch, useAppSelector } from "shared/store";
+import { ICompany, selectCompaniesInDisplayCount } from "entities/company";
 import { companiesSliceActions, useCompaniesSelection } from "entities/company";
 import {
   CompanyUpdateMenu,
@@ -19,6 +20,9 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const data = useAppSelector(selectCompaniesInDisplayCount);
   const selection = useCompaniesSelection(data);
   const editing = useUpdateCompany();
+  useInfiniteScroll(() =>
+    dispatch(companiesSliceActions.increaseDisplayCount())
+  );
 
   const onDeleteCompanies = useCallback(() => {
     dispatch(companiesSliceActions.deleteByIds(selection.ids));
@@ -50,15 +54,6 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
       ),
     []
   );
-
-  console.debug(data.length);
-
-  // useEffect(() => {
-  //   setInterval(
-  //     () => dispatch(companiesSliceActions.increaseDisplayCount()),
-  //     1000
-  //   );
-  // }, []);
 
   return (
     <div className={classNames(styles.root, className)}>

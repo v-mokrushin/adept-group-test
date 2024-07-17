@@ -4,7 +4,7 @@ import { companiesMock } from "../mock";
 
 const initialState: ICompanySliceState = {
   companies: companiesMock,
-  displayCount: 10,
+  displayCount: 30,
 };
 
 export const companiesSlice = createSlice({
@@ -15,7 +15,7 @@ export const companiesSlice = createSlice({
       state: ICompanySliceState,
       action: { payload: { name: string; address: string }; type: string }
     ) {
-      state.companies.push({
+      state.companies.unshift({
         id: Math.random(),
         name: action.payload.name,
         address: action.payload.address,
@@ -52,7 +52,7 @@ export const companiesSlice = createSlice({
 
     increaseDisplayCount(state: ICompanySliceState) {
       const companiesCount = state.companies.length;
-      const newCount = state.displayCount + 10;
+      const newCount = state.displayCount + 30;
       if (newCount <= companiesCount) state.displayCount = newCount;
       else state.displayCount = companiesCount;
     },
