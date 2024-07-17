@@ -13,3 +13,7 @@ export const TableTemplate: React.FC<IProps> = ({ children, className }) => {
     <table className={classNames(styles.root, className)}>{children}</table>
   );
 };
+
+export const tableTemplateExtraStyles = {
+  selected: styles.selected,
+};

@@ -1,1 +1,1 @@
-export { TableTemplate } from "./ui/TableTemplate";
+export { TableTemplate, tableTemplateExtraStyles } from "./ui/TableTemplate";

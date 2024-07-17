@@ -16,6 +16,7 @@ import {
   CompanyUpdateMenu,
   useUpdateCompany,
 } from "features/companyUpdateMenu";
+import { tableTemplateExtraStyles } from "shared/ui/tableTemplate";
 
 interface IProps {
   className?: string;
@@ -78,7 +79,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
           defaultPosition
         />
       )}
-      <span>{`Компаний всего: ${companiesCount}`}</span>
+      <span>{`Компаний всего: ${companiesCount}, отображено: ${companies.length}`}</span>
       <TableTemplate className={styles.table}>
         <thead>
           <tr>
@@ -96,7 +97,14 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
         </thead>
         <tbody>
           {companies.map((company, index) => (
-            <tr key={company.id} className={styles.tr}>
+            <tr
+              key={company.id}
+              className={classNames(
+                styles.tr,
+                selection.isSelected(company.id) &&
+                  tableTemplateExtraStyles.selected
+              )}
+            >
               <td>{index + 1}</td>
               <td>
                 <Checkbox
