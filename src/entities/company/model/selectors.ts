@@ -12,7 +12,12 @@ export const selectCompanies = createSelector(
   (state) => state.companies
 );
 
-export const selectCompaniesInDisplayCount = createSelector(
+export const selectCompaniesCount = createSelector(
+  selectCompanies,
+  (state) => state.length
+);
+
+export const selectCompaniesLimitedByDisplayCount = createSelector(
   [selectCompanies, selectDisplayCount],
   (companies, displayCount) => companies.slice(0, displayCount)
 );

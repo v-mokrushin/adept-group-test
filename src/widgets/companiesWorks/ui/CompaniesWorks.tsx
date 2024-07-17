@@ -2,10 +2,16 @@ import React, { useCallback } from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
 import { useInfiniteScroll } from "shared/hooks";
-import { Button, Checkbox, TableTemplate } from "shared/ui";
+import { TextButton } from "shared/ui";
+import { Checkbox, TableTemplate } from "shared/ui";
 import { useAppDispatch, useAppSelector } from "shared/store";
-import { ICompany, selectCompaniesInDisplayCount } from "entities/company";
+import { CompanyDeletionAffirmator } from "features/companyDeletionAffirmator";
 import { companiesSliceActions, useCompaniesSelection } from "entities/company";
+import {
+  ICompany,
+  selectCompaniesCount,
+  selectCompaniesLimitedByDisplayCount,
+} from "entities/company";
 import {
   CompanyUpdateMenu,
   useUpdateCompany,
@@ -17,8 +23,9 @@ interface IProps {
 
 export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector(selectCompaniesInDisplayCount);
-  const selection = useCompaniesSelection(data);
+  const companies = useAppSelector(selectCompaniesLimitedByDisplayCount);
+  const companiesCount = useAppSelector(selectCompaniesCount);
+  const selection = useCompaniesSelection(companies);
   const editing = useUpdateCompany();
   useInfiniteScroll(() =>
     dispatch(companiesSliceActions.increaseDisplayCount())
@@ -59,13 +66,18 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
     <div className={classNames(styles.root, className)}>
       <CompanyUpdateMenu state={editing} />
       {selection.isSomeSelected && (
-        <Button color="red" onClick={onDeleteCompanies}>
-          Удалить
-        </Button>
+        <CompanyDeletionAffirmator
+          selectedCompaniesCount={selection.count}
+          onReset={selection.reset}
+          onAffirm={onDeleteCompanies}
+          defaultPosition
+        />
       )}
+      <span>{`Компаний всего: ${companiesCount}`}</span>
       <TableTemplate className={styles.table}>
         <thead>
           <tr>
+            <th></th>
             <th>
               <Checkbox
                 value={selection.isAllSelected}
@@ -77,19 +89,38 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((company) => (
+          {companies.map((company, index) => (
             <tr key={company.id}>
+              <td>{index + 1}</td>
               <td>
                 <Checkbox
                   value={selection.isSelected(company.id)}
                   onChange={() => selection.select(company)}
                 />
               </td>
-              <td onClick={(event) => onUpdateName(event, company)}>
-                {company.name}
+              <td>
+                <div className={styles.tdBox}>
+                  <span>{company.name}</span>
+                  <TextButton
+                    onClick={(event: React.MouseEvent) =>
+                      onUpdateName(event, company)
+                    }
+                  >
+                    (ред.)
+                  </TextButton>
+                </div>
               </td>
-              <td onClick={(event) => onUpdateAddress(event, company)}>
-                {company.address}
+              <td>
+                <div className={styles.tdBox}>
+                  <span>{company.address}</span>
+                  <TextButton
+                    onClick={(event: React.MouseEvent) =>
+                      onUpdateAddress(event, company)
+                    }
+                  >
+                    (ред.)
+                  </TextButton>
+                </div>
               </td>
             </tr>
           ))}

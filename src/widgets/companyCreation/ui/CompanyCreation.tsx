@@ -20,7 +20,7 @@ export const CompanyCreation: React.FC = () => {
   const onCreate = () => {
     if (!isValid) return;
     dispatch(
-      companiesSliceActions.push({
+      companiesSliceActions.create({
         name: treatedName,
         address: treatedAddress,
       })
@@ -33,7 +33,7 @@ export const CompanyCreation: React.FC = () => {
       <Input label="Название" value={name} onChange={setName} />
       <Input label="Адрес" value={address} onChange={setAddress} />
       <Button onClick={onCreate} disabled={!isValid}>
-        Создать
+        Создать компанию
       </Button>
     </div>
   );

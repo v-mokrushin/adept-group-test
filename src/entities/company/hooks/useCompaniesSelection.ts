@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 /** Кастомный хук состояния выбора компонентов для массовых операций */
 export const useCompaniesSelection = (collection: ICompany[]) => {
   const [items, setItems] = useState<ICompany[]>([]);
+  const count = useMemo(() => items.length, [items]);
   const ids = useMemo(() => items.map((item) => item.id), [items]);
   const reset = useCallback(() => setItems([]), []);
 
@@ -26,7 +27,9 @@ export const useCompaniesSelection = (collection: ICompany[]) => {
   );
 
   const isAllSelected = useMemo(
-    () => collection.length === items.length && collection.length > 0,
+    () =>
+      collection.length > 0 &&
+      collection.every((company) => items.find((item) => item.id === company.id)),
     [collection, items]
   );
 
@@ -37,6 +40,7 @@ export const useCompaniesSelection = (collection: ICompany[]) => {
 
   return {
     items,
+    count,
     ids,
     isSomeSelected,
     isSelected,

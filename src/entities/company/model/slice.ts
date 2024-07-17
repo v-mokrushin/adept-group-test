@@ -11,14 +11,15 @@ export const companiesSlice = createSlice({
   name: "companiesSlice",
   initialState,
   reducers: {
-    push(
+    create(
       state: ICompanySliceState,
       action: { payload: { name: string; address: string }; type: string }
     ) {
+      const { name, address } = action.payload;
       state.companies.unshift({
         id: Math.random(),
-        name: action.payload.name,
-        address: action.payload.address,
+        name: name,
+        address: address,
       });
     },
 

@@ -1,0 +1,27 @@
+.root {
+  height: 45px;
+  width: max-content;
+  background-color: rgb(50, 50, 50);
+  opacity: 1;
+  border-radius: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  color: white;
+
+  &_defaultPosition {
+    position: fixed;
+    z-index: 200;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+  }
+
+  .actionsBox {
+    display: flex;
+    gap: 7px;
+  }
+}
