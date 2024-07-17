@@ -1,3 +1,5 @@
+@import "shared/styles/index.scss";
+
 .root {
   height: 45px;
   width: max-content;
@@ -11,6 +13,7 @@
   align-items: center;
   gap: 20px;
   color: white;
+  @include appearElement;
 
   &_defaultPosition {
     position: fixed;

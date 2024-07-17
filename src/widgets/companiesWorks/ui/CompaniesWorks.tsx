@@ -96,7 +96,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
         </thead>
         <tbody>
           {companies.map((company, index) => (
-            <tr key={company.id}>
+            <tr key={company.id} className={styles.tr}>
               <td>{index + 1}</td>
               <td>
                 <Checkbox
