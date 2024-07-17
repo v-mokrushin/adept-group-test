@@ -1,15 +1,15 @@
 import React, { useLayoutEffect, useMemo, useState } from "react";
-import styles from "./CompanyEditingMenu.module.scss";
+import styles from "./CompanyUpdateMenu.module.scss";
 import classNames from "classnames";
 import { Button, Input } from "shared/ui";
-import { useOutsideClick } from "shared/hooks";
 import { IUseEditCompany } from "../hook";
+import { useOutsideClick } from "shared/hooks";
 
 interface IProps {
   state: IUseEditCompany;
 }
 
-export const CompanyEditingMenu: React.FC<IProps> = ({ state }) => {
+export const CompanyUpdateMenu: React.FC<IProps> = ({ state }) => {
   const ref = React.useRef(null);
   const event = state.event;
   const [newValue, setNewValue] = useState("");

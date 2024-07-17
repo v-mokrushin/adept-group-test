@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
+import { ICompany } from "entities/company";
 import { Button, Checkbox, TableTemplate } from "shared/ui";
 import { useAppDispatch, useAppSelector } from "shared/store";
 import {
-  companiesSlice,
+  companiesSliceActions,
   selectCompanies,
   useCompaniesSelection,
 } from "entities/company";
 import {
-  CompanyEditingMenu,
-  useEditCompany,
-} from "features/companyEditingMenu";
+  CompanyUpdateMenu,
+  useUpdateCompany,
+} from "features/companyUpdateMenu";
 
 interface IProps {
   className?: string;
@@ -21,22 +22,44 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(selectCompanies);
   const selection = useCompaniesSelection(data);
-  const editing = useEditCompany();
+  const editing = useUpdateCompany();
 
-  const deleteItems = () => {
-    dispatch(companiesSlice.actions.deleteByIds(selection.ids));
+  const onDeleteCompanies = useCallback(() => {
+    dispatch(companiesSliceActions.deleteByIds(selection.ids));
     selection.reset();
-  };
+  }, [selection.ids]);
 
-  // useEffect(() => {
-  //   dispatch(companiesSlice.actions.setAddress({ id: 1, newAddress: "val" }));
-  // }, []);
+  const onUpdateName = useCallback(
+    (event: React.MouseEvent, company: ICompany) =>
+      editing.open(event, company.name, (name: string) =>
+        dispatch(
+          companiesSliceActions.setName({
+            id: company.id,
+            newName: name,
+          })
+        )
+      ),
+    []
+  );
+
+  const onUpdateAddress = useCallback(
+    (event: React.MouseEvent, company: ICompany) =>
+      editing.open(event, company.address, (address: string) =>
+        dispatch(
+          companiesSliceActions.setAddress({
+            id: company.id,
+            newAddress: address,
+          })
+        )
+      ),
+    []
+  );
 
   return (
     <div className={classNames(styles.root, className)}>
-      <CompanyEditingMenu state={editing} />
+      <CompanyUpdateMenu state={editing} />
       {selection.isSomeSelected && (
-        <Button color="red" onClick={deleteItems}>
+        <Button color="red" onClick={onDeleteCompanies}>
           Удалить
         </Button>
       )}
@@ -62,21 +85,12 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
                   onChange={() => selection.select(company)}
                 />
               </td>
-              <td
-                onClick={(e) =>
-                  editing.open(e, company.name, (name: string) =>
-                    dispatch(
-                      companiesSlice.actions.setName({
-                        id: company.id,
-                        newName: name,
-                      })
-                    )
-                  )
-                }
-              >
+              <td onClick={(event) => onUpdateName(event, company)}>
                 {company.name}
               </td>
-              <td>{company.address}</td>
+              <td onClick={(event) => onUpdateAddress(event, company)}>
+                {company.address}
+              </td>
             </tr>
           ))}
         </tbody>

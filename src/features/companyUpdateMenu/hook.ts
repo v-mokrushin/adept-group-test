@@ -1,16 +1,19 @@
 import { useState } from "react";
 
-type TOnSaveFunc = (newValue: string) => void;
+type TOnSaveCallback = (newValue: string) => void;
 
-export const useEditCompany = () => {
+export const useUpdateCompany = () => {
   const [event, setEvent] = useState<React.MouseEvent | null>(null);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const [initialValue, setInitialValue] = useState<string>("");
-  const [onSave, setOnSave] = useState<Function>(() => () => {});
+  const [onSave, setOnSave] = useState<TOnSaveCallback>(() => () => {});
 
-  const open = (e: React.MouseEvent, initValue: string, onSave: Function) => {
+  const open = (
+    e: React.MouseEvent,
+    initValue: string,
+    onSave: TOnSaveCallback
+  ) => {
     setEvent(e);
-    console.debug(e);
     setIsMenuVisible(true);
     setInitialValue(initValue);
     setOnSave(() => onSave);
@@ -32,4 +35,4 @@ export const useEditCompany = () => {
   };
 };
 
-export type IUseEditCompany = ReturnType<typeof useEditCompany>;
+export type IUseEditCompany = ReturnType<typeof useUpdateCompany>;

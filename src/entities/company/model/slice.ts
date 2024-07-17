@@ -50,3 +50,5 @@ export const companiesSlice = createSlice({
     },
   },
 });
+
+export const companiesSliceActions = companiesSlice.actions;
