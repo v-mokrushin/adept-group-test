@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CompanyCreation.module.scss";
 import { Button, Input } from "shared/ui";
 import { useAppDispatch } from "shared/store";
-import { companiesSlice, useCompanyCreation } from "entities/company";
+import { companiesSliceActions, useCompanyCreation } from "entities/company";
 
 export const CompanyCreation: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export const CompanyCreation: React.FC = () => {
   const onCreate = () => {
     if (!isValid) return;
     dispatch(
-      companiesSlice.actions.push({
+      companiesSliceActions.push({
         name: treatedName,
         address: treatedAddress,
       })

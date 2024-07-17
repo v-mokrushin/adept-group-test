@@ -6,4 +6,5 @@ export interface ICompany {
 
 export interface ICompanySliceState {
   companies: ICompany[];
+  displayCount: number;
 }

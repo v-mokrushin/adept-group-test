@@ -1,14 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
-import { ICompany } from "entities/company";
+import { ICompany, selectCompaniesInDisplayCount } from "entities/company";
 import { Button, Checkbox, TableTemplate } from "shared/ui";
 import { useAppDispatch, useAppSelector } from "shared/store";
-import {
-  companiesSliceActions,
-  selectCompanies,
-  useCompaniesSelection,
-} from "entities/company";
+import { companiesSliceActions, useCompaniesSelection } from "entities/company";
 import {
   CompanyUpdateMenu,
   useUpdateCompany,
@@ -20,7 +16,7 @@ interface IProps {
 
 export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector(selectCompanies);
+  const data = useAppSelector(selectCompaniesInDisplayCount);
   const selection = useCompaniesSelection(data);
   const editing = useUpdateCompany();
 
@@ -54,6 +50,15 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
       ),
     []
   );
+
+  console.debug(data.length);
+
+  // useEffect(() => {
+  //   setInterval(
+  //     () => dispatch(companiesSliceActions.increaseDisplayCount()),
+  //     1000
+  //   );
+  // }, []);
 
   return (
     <div className={classNames(styles.root, className)}>
