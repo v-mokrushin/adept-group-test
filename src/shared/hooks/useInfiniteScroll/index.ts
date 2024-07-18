@@ -15,5 +15,5 @@ export const useInfiniteScroll = (onScroll: Function) => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [onScroll]);
 };

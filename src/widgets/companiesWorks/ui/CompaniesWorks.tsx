@@ -1,22 +1,24 @@
 import React, { useCallback } from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
-import { useInfiniteScroll } from "shared/hooks";
 import { TextButton } from "shared/ui";
+import { useInfiniteScroll } from "shared/hooks";
 import { Checkbox, TableTemplate } from "shared/ui";
 import { useAppDispatch, useAppSelector } from "shared/store";
+import { useFilterCompanies } from "../hooks/useFilterCompanies";
+import { ICompany, selectCompaniesCount } from "entities/company";
+import { tableTemplateExtraStyles } from "shared/ui/tableTemplate";
 import { CompanyDeletionAffirmator } from "features/companyDeletionAffirmator";
-import { companiesSliceActions, useCompaniesSelection } from "entities/company";
 import {
-  ICompany,
-  selectCompaniesCount,
-  selectCompaniesLimitedByDisplayCount,
+  companiesSliceActions,
+  selectCompanies,
+  useCompaniesSelection,
 } from "entities/company";
+
 import {
   CompanyUpdateMenu,
   useUpdateCompany,
 } from "features/companyUpdateMenu";
-import { tableTemplateExtraStyles } from "shared/ui/tableTemplate";
 
 interface IProps {
   className?: string;
@@ -24,13 +26,13 @@ interface IProps {
 
 export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const dispatch = useAppDispatch();
-  const companies = useAppSelector(selectCompaniesLimitedByDisplayCount);
+  const companies = useAppSelector(selectCompanies);
   const companiesCount = useAppSelector(selectCompaniesCount);
-  const selection = useCompaniesSelection(companies);
+  const filteredCompanies = useFilterCompanies(companies);
+  const selection = useCompaniesSelection(filteredCompanies.array);
   const editing = useUpdateCompany();
-  useInfiniteScroll(() =>
-    dispatch(companiesSliceActions.increaseDisplayCount())
-  );
+
+  useInfiniteScroll(filteredCompanies.increaseCount);
 
   const onDeleteCompany = useCallback((id: number) => {
     dispatch(companiesSliceActions.deleteById(id));
@@ -79,7 +81,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
           defaultPosition
         />
       )}
-      <span>{`Компаний всего: ${companiesCount}, отображено: ${companies.length}`}</span>
+      <span>{`Компаний всего: ${companiesCount}, отображено: ${filteredCompanies.count}`}</span>
       <TableTemplate className={styles.table}>
         <thead>
           <tr>
@@ -96,7 +98,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
           </tr>
         </thead>
         <tbody>
-          {companies.map((company, index) => (
+          {filteredCompanies.array.map((company, index) => (
             <tr
               key={company.id}
               className={classNames(

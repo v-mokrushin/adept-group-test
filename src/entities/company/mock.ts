@@ -1,11 +1,10 @@
 import { GetCompany } from "./lib";
+import { config } from "shared/config";
 import { ICompany } from "./model/types";
-
-const GENERATION_COUNT = 1000;
 
 export const companiesMock: ICompany[] = [];
 
-for (let i = 0; i < GENERATION_COUNT; i++) {
+for (let i = 0; i < config.companiesMocksCount; i++) {
   const number = i + 1;
   companiesMock.push(
     GetCompany(i + 1, `company's ${number} name`, `company's ${number} address`)
