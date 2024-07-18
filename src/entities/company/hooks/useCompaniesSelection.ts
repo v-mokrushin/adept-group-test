@@ -51,5 +51,3 @@ export const useCompaniesSelection = (collection: ICompany[]) => {
     reset,
   };
 };
-
-export type IUseMassSelection = ReturnType<typeof useCompaniesSelection>;

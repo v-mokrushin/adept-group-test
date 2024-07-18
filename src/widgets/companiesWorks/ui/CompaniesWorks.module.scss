@@ -1,6 +1,11 @@
 @import "shared/styles/index.scss";
 
 .root {
+  .countInfoLabel {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
   .table {
     min-width: 550px;
 

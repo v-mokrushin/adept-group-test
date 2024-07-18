@@ -73,6 +73,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   return (
     <div className={classNames(styles.root, className)}>
       <CompanyUpdateMenu state={editing} />
+
       {selection.isSomeSelected && (
         <CompanyDeletionAffirmator
           selectedCompaniesCount={selection.count}
@@ -81,77 +82,86 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
           defaultPosition
         />
       )}
-      <span>{`Компаний всего: ${companiesCount}, отображено: ${filteredCompanies.count}`}</span>
-      <TableTemplate className={styles.table}>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>
-              <Checkbox
-                value={selection.isAllSelected}
-                onChange={selection.selectAll}
-              />
-            </th>
-            <th>Название компании</th>
-            <th>Адрес</th>
-            {selection.isSomeSelected || <th></th>}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredCompanies.array.map((company, index) => (
-            <tr
-              key={company.id}
-              className={classNames(
-                styles.tr,
-                selection.isSelected(company.id) &&
-                  tableTemplateExtraStyles.selected
-              )}
-            >
-              <td>{index + 1}</td>
-              <td>
-                <Checkbox
-                  value={selection.isSelected(company.id)}
-                  onChange={() => selection.select(company)}
-                />
-              </td>
-              <td>
-                <div className={styles.tdBox}>
-                  <span>{company.name}</span>
-                  <TextButton
-                    onClick={(event: React.MouseEvent) =>
-                      onUpdateName(event, company)
-                    }
-                  >
-                    (ред.)
-                  </TextButton>
-                </div>
-              </td>
-              <td>
-                <div className={styles.tdBox}>
-                  <span>{company.address}</span>
-                  <TextButton
-                    onClick={(event: React.MouseEvent) =>
-                      onUpdateAddress(event, company)
-                    }
-                  >
-                    (ред.)
-                  </TextButton>
-                </div>
-              </td>
-              {selection.isSomeSelected || (
-                <td>
-                  <TextButton
-                    errorStyle
-                    onClick={() => onDeleteCompany(company.id)}
-                  >
-                    удалить
-                  </TextButton>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </TableTemplate>
+
+      {filteredCompanies.count ? (
+        <>
+          <p
+            className={styles.countInfoLabel}
+          >{`Компаний всего: ${companiesCount}, отображено: ${filteredCompanies.count}`}</p>
+          <TableTemplate className={styles.table}>
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>
+                  <Checkbox
+                    value={selection.isAllSelected}
+                    onChange={selection.selectAll}
+                  />
+                </th>
+                <th>Название компании</th>
+                <th>Адрес</th>
+                {selection.isSomeSelected || <th></th>}
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCompanies.array.map((company, index) => (
+                <tr
+                  key={company.id}
+                  className={classNames(
+                    styles.tr,
+                    selection.isSelected(company.id) &&
+                      tableTemplateExtraStyles.selected
+                  )}
+                >
+                  <td>{index + 1}</td>
+                  <td>
+                    <Checkbox
+                      value={selection.isSelected(company.id)}
+                      onChange={() => selection.select(company)}
+                    />
+                  </td>
+                  <td>
+                    <div className={styles.tdBox}>
+                      <span>{company.name}</span>
+                      <TextButton
+                        onClick={(event: React.MouseEvent) =>
+                          onUpdateName(event, company)
+                        }
+                      >
+                        (ред.)
+                      </TextButton>
+                    </div>
+                  </td>
+                  <td>
+                    <div className={styles.tdBox}>
+                      <span>{company.address}</span>
+                      <TextButton
+                        onClick={(event: React.MouseEvent) =>
+                          onUpdateAddress(event, company)
+                        }
+                      >
+                        (ред.)
+                      </TextButton>
+                    </div>
+                  </td>
+                  {selection.isSomeSelected || (
+                    <td>
+                      <TextButton
+                        errorStyle
+                        onClick={() => onDeleteCompany(company.id)}
+                      >
+                        удалить
+                      </TextButton>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </TableTemplate>
+        </>
+      ) : (
+        <p className={styles.countInfoLabel}>Компаний нет</p>
+      )}
     </div>
   );
 };

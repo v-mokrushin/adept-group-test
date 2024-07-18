@@ -27,5 +27,3 @@ export const useCompanyCreation = () => {
     isValid,
   };
 };
-
-export type IUseCompanyCreation = ReturnType<typeof useCompanyCreation>;
