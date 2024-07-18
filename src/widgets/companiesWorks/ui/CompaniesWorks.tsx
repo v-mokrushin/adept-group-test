@@ -29,7 +29,7 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
   const companies = useAppSelector(selectCompanies);
   const companiesCount = useAppSelector(selectCompaniesCount);
   const filteredCompanies = useFilterCompanies(companies);
-  const selection = useCompaniesSelection(filteredCompanies.array);
+  const selection = useCompaniesSelection(companies);
   const editing = useUpdateCompany();
 
   useInfiniteScroll(filteredCompanies.increaseCount);

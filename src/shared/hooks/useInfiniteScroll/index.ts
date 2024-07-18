@@ -4,7 +4,7 @@ export const useInfiniteScroll = (onScroll: Function) => {
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
+        window.innerHeight + document.documentElement.scrollTop + 10 <
         document.documentElement.offsetHeight
       ) {
         return;

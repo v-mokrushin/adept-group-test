@@ -1,4 +1,4 @@
 export const config = {
   appName: "Список компаний",
-  companiesMocksCount: 100,
+  companiesMocksCount: 1000,
 };
