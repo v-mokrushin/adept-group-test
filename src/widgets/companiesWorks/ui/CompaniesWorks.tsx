@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styles from "./CompaniesWorks.module.scss";
 import classNames from "classnames";
 import { TextButton } from "shared/ui";
@@ -14,7 +14,6 @@ import {
   selectCompanies,
   useCompaniesSelection,
 } from "entities/company";
-
 import {
   CompanyUpdateMenu,
   useUpdateCompany,
@@ -34,41 +33,35 @@ export const CompaniesWorks: React.FC<IProps> = ({ className }) => {
 
   useInfiniteScroll(filteredCompanies.increaseCount);
 
-  const onDeleteCompany = useCallback((id: number) => {
+  const onDeleteCompany = (id: number) => {
     dispatch(companiesSliceActions.deleteById(id));
     selection.reset();
-  }, []);
+  };
 
-  const onDeleteCompanies = useCallback(() => {
+  const onDeleteCompanies = () => {
     dispatch(companiesSliceActions.deleteByIds(selection.ids));
     selection.reset();
-  }, [selection.ids]);
+  };
 
-  const onUpdateName = useCallback(
-    (event: React.MouseEvent, company: ICompany) =>
-      editing.open(event, company.name, (name: string) =>
-        dispatch(
-          companiesSliceActions.setName({
-            id: company.id,
-            newName: name,
-          })
-        )
-      ),
-    []
-  );
+  const onUpdateName = (event: React.MouseEvent, company: ICompany) =>
+    editing.open(event, company.name, (name: string) =>
+      dispatch(
+        companiesSliceActions.setName({
+          id: company.id,
+          newName: name,
+        })
+      )
+    );
 
-  const onUpdateAddress = useCallback(
-    (event: React.MouseEvent, company: ICompany) =>
-      editing.open(event, company.address, (address: string) =>
-        dispatch(
-          companiesSliceActions.setAddress({
-            id: company.id,
-            newAddress: address,
-          })
-        )
-      ),
-    []
-  );
+  const onUpdateAddress = (event: React.MouseEvent, company: ICompany) =>
+    editing.open(event, company.address, (address: string) =>
+      dispatch(
+        companiesSliceActions.setAddress({
+          id: company.id,
+          newAddress: address,
+        })
+      )
+    );
 
   return (
     <div className={classNames(styles.root, className)}>

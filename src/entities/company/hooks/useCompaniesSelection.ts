@@ -1,43 +1,33 @@
+import { useState } from "react";
 import { ICompany } from "../model/types";
-import { useCallback, useMemo, useState } from "react";
 
 export const useCompaniesSelection = (collection: ICompany[]) => {
   const [items, setItems] = useState<ICompany[]>([]);
-  const count = useMemo(() => items.length, [items]);
-  const ids = useMemo(() => items.map((item) => item.id), [items]);
-  const reset = useCallback(() => setItems([]), []);
+  const count = items.length;
+  const ids = items.map((item) => item.id);
+  const reset = () => setItems([]);
 
-  const isSomeSelected = useMemo(() => items.length > 0, [items]);
+  const isSomeSelected = items.length > 0;
 
-  const isSelected = useCallback(
-    (id: number): boolean => Boolean(items.find((x) => x.id === id)),
-    [items]
-  );
+  const isSelected = (id: number): boolean =>
+    Boolean(items.find((x) => x.id === id));
 
-  const select = useCallback(
-    (item: ICompany) => {
-      if (!isSelected(item.id)) {
-        setItems([...items, item]);
-      } else {
-        setItems([...items.filter((x) => x.id !== item.id)]);
-      }
-    },
-    [items, isSelected]
-  );
+  const select = (item: ICompany) => {
+    if (!isSelected(item.id)) {
+      setItems([...items, item]);
+    } else {
+      setItems([...items.filter((x) => x.id !== item.id)]);
+    }
+  };
 
-  const isAllSelected = useMemo(
-    () =>
-      collection.length > 0 &&
-      collection.every((company) =>
-        items.find((item) => item.id === company.id)
-      ),
-    [collection, items]
-  );
+  const isAllSelected =
+    collection.length > 0 &&
+    collection.every((company) => items.find((item) => item.id === company.id));
 
-  const selectAll = useCallback((): void => {
+  const selectAll = () => {
     if (isAllSelected) reset();
     else setItems([...collection]);
-  }, [isAllSelected, collection]);
+  };
 
   return {
     items,

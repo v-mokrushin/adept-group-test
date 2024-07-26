@@ -1,20 +1,18 @@
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 
 export const useCompanyCreation = () => {
   const [name, setName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
-  const reset = useCallback(() => {
+
+  const reset = () => {
     setName("");
     setAddress("");
-  }, []);
+  };
 
-  const treatedName = useMemo(() => name.replaceAll(" ", ""), [name]);
-  const treatedAddress = useMemo(() => address.replaceAll(" ", ""), [address]);
+  const treatedName = () => name.replaceAll(" ", "");
+  const treatedAddress = () => address.replaceAll(" ", "");
 
-  const isValid: boolean = useMemo(
-    () => !!treatedName && !!treatedAddress,
-    [treatedName, treatedAddress]
-  );
+  const isValid: boolean = !!treatedName && !!treatedAddress;
 
   return {
     name,

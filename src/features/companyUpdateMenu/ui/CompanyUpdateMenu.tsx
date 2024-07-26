@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styles from "./CompanyUpdateMenu.module.scss";
 import classNames from "classnames";
 import { Button, Input } from "shared/ui";
@@ -13,10 +13,8 @@ export const CompanyUpdateMenu: React.FC<IProps> = ({ state }) => {
   const ref = React.useRef(null);
   const event = state.event;
   const [newValue, setNewValue] = useState("");
-  const isValid = useMemo(
-    () => !!newValue && newValue !== state.initialValue,
-    [newValue, state.initialValue]
-  );
+  const isValid = !!newValue && newValue !== state.initialValue;
+
   useOutsideClick(ref, state.close);
 
   const onSave = () => {
